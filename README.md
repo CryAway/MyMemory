@@ -1,2 +1,1 @@
-# MyMemory
-Team Meow Meow
+# Team Meow Meow
