@@ -6,4 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ScoreBoard">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="277dp"
+        android:layout_height="275dp"
+        android:text="The purpose of app &quot;My memory&quot; is to improve people's memorzing ability and skills. Nowadays, more and more people have encountered the problems of memory loss or suffered from bening not able to remember things. We believe that our players can experience their memories become more solid and clear by playing games. There are two kinds of games, which are the card filpping game and the memorizing numers game. The more you practice, train and challenge your brain, the happier success you will see after many rounds you have accomplished. "
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="352dp" />
 </android.support.constraint.ConstraintLayout>
