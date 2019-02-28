@@ -20,4 +20,18 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Player.class);
         startActivity(intent);
     }
+    public void Information(View v)
+    {
+        Intent intent = new Intent(this, Information.class);
+        startActivity(intent);
+    }
+    public void GameMenu(View v)
+    {
+        Intent intent = new Intent (this, GameMenu.class);
+        startActivity(intent);
+    }
+    public void Scoreboard(View v)
+    {
+        Intent intent = new Intent (this, ScoreBoard.class);
+    }
 }
