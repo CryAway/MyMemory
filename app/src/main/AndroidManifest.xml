@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ScoreBoard"></activity>
+        <activity android:name=".Game1"></activity>
+        <activity
+            android:name=".Game2"
+            android:label="@string/title_activity_game2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ScoreBoard" />
         <activity android:name=".GameMenu" />
         <activity android:name=".Information" />
         <activity android:name=".Player" />

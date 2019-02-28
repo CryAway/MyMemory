@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         //Hi I'm Nhannn
         //Hello Lily is here.
         //Vy
+        //asd
     }
     public void Player(View v)
     {
@@ -33,5 +34,6 @@ public class MainActivity extends AppCompatActivity {
     public void Scoreboard(View v)
     {
         Intent intent = new Intent (this, ScoreBoard.class);
+        startActivity(intent);
     }
 }
