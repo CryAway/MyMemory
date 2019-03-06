@@ -16,23 +16,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        /*lv = findViewById(R.id.ScoreBoard);
-        PlayerScoreList.getInstance().add();
-        lv.setAdapter(new ArrayAdapter<PlayerScore>(
-                this,  //context (activity instance)
-                android.R.layout.simple_list_item_1, //XML item layout
-                PlayerScoreList.getInstance().getPlayerScoreList()) //array of data
-        );
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent nextActivity = new Intent(MainActivity.this, ScoreBoard.class);
-                nextActivity.putExtra("President", i);
-                startActivity(nextActivity);
-
-            }
-        });*/
 
     }
     public void Player(View v)
