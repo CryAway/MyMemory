@@ -3,25 +3,18 @@ package com.example.mymemory;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.view.inputmethod.EditorInfo;
-import android.view.KeyEvent;
 
 import java.util.Random;
-import java.util.Scanner;
 
 public class Game2 extends AppCompatActivity {
-
-    private String numberToGuess;
+    //state of the game
+    private String numberToRemember;
     private int level = 1;
 
     @Override
@@ -29,68 +22,96 @@ public class Game2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game2);
 
+        //start the game
+        startRound(level);
+
         final Button enterButton = findViewById(R.id.enter);
+        //an event for button click when user gives the input
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 checkanswer();
             }
         });
-        startRound(level);
+        //we hide the replay button at the start
+        final Button replay = findViewById(R.id.replay);
+        replay.setVisibility(View.GONE);
+
+        replay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //when replay button is clicked, do these:
+                level = 1;
+                final TextView score = findViewById(R.id.score);
+                score.setText("Score: 0");
+                final Button enterButton = findViewById(R.id.enter);
+                final EditText input = (EditText) findViewById(R.id.userInput);
+                //remove the previous input from last game
+                input.setText("");
+                input.setVisibility(View.VISIBLE);
+                enterButton.setVisibility(View.VISIBLE);
+                replay.setVisibility(View.GONE);
+                startRound(level);
+            }
+        });
     }
+
 
     protected void startRound(int level){
         final EditText input = (EditText) findViewById(R.id.userInput);
         final Button enterButton = findViewById(R.id.enter);
+        //disable input and enter buttons so user cannot type before the timer
         input.setEnabled(false);
         enterButton.setEnabled(false);
-        final TextView textViewToChange = findViewById(R.id.randomNumber);
-        numberToGuess = randomNum(level);
-        textViewToChange.setText(numberToGuess);
+        final TextView textDisplay = findViewById(R.id.randomNumber);
+        numberToRemember = createRandomNumber(level);
+        textDisplay.setText(numberToRemember);
         startTimer();
     }
 
-    //Declare timer
-    CountDownTimer cTimer = null;
-
     //start timer function
     void startTimer() {
-        final TextView textViewToChange = findViewById(R.id.randomNumber);
-        cTimer = new CountDownTimer(5000, 1000) {
+        CountDownTimer cTimer = new CountDownTimer(5000, 1000) {
             public void onTick(long millisUntilFinished) {
             }
             public void onFinish() {
-                textViewToChange.setText("");
+                //when the timer ends, do these:
+                //first, clear the numberToRemember text
+                final TextView textDisplay = findViewById(R.id.randomNumber);
+                textDisplay.setText("");
+                //enable the input and enter buttons so user can type the answer now
                 final Button enterButton = findViewById(R.id.enter);
                 enterButton.setEnabled(true);
                 final EditText input = (EditText) findViewById(R.id.userInput);
                 input.setEnabled(true);
+                //automatically bring up the input number pad
                 input.requestFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
 
             }
         };
+        //after defining the timer, we can start it
         cTimer.start();
     }
 
 
-    //cancel timer
-    void cancelTimer() {
-        if(cTimer!=null)
-            cTimer.cancel();
-    }
 
-    protected String randomNum(int length){
+    protected String createRandomNumber(int lhkgjfh){
+        //make a storing box for the random number
         String output = "";
         Random rand = new Random();
-        while(output.length() < length){
+        //create random numbers until it has the same amount of digits as the given length
+        while(output.length() < lhkgjfh){
             int num;
             if (output.length() == 0) {
+                //first number cannot be zero, only 1~9
                 num = rand.nextInt(8) + 1;
             } else {
+                //from second number, the rest can be 0~9
                 num = rand.nextInt(9);
             }
+            //put the number into the storing box
             output = output + num;
         }
         return output;
@@ -99,20 +120,28 @@ public class Game2 extends AppCompatActivity {
     protected void checkanswer()
     {
         final EditText input = (EditText) findViewById(R.id.userInput);
-        boolean correctGuess = input.getText().toString().equals(numberToGuess);
+        boolean correctGuess = input.getText().toString().equals(numberToRemember);
         if (correctGuess) {
             final TextView score = findViewById(R.id.score);
             score.setText("Score: " + level);
-            level++;
+            //after user passed the round, we clear the input they typed
             input.setText("");
+            //increase the level and start the next round
+            level++;
             startRound(level);
         } else {
-            final TextView textViewToChange = findViewById(R.id.randomNumber);
-            textViewToChange.setText("Wrong number: " + input.getText() + " Answer: " + numberToGuess);
+            //game over, hide input and enter buttons
             final Button enterButton = findViewById(R.id.enter);
-            input.setVisibility(View.GONE);
+            input.setVisibility(View.INVISIBLE);
             enterButton.setVisibility(View.GONE);
 
+            //show the correct answer
+            final TextView textDisplay = findViewById(R.id.randomNumber);
+            textDisplay.setText("Wrong number: " + input.getText() + " Answer: " + numberToRemember);
+
+            //show replay button
+            final Button replay = findViewById(R.id.replay);
+            replay.setVisibility(View.VISIBLE);
         }
     }
 }
