@@ -3,11 +3,14 @@ package com.example.mymemory;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import java.util.Arrays;
@@ -16,6 +19,8 @@ import java.util.List;
 
 public class Game1 extends AppCompatActivity {
 
+    Button btnStart;
+    TextView txtTimer;
     ImageView iv_11,iv_12,iv_13,iv_14,iv_21,iv_22,iv_23,iv_24,iv_31,iv_32,iv_33,iv_34;
 
     Integer[] cardsArray = {11,12,13,14,15,16,21,22,23,24,25,26};
@@ -25,14 +30,18 @@ public class Game1 extends AppCompatActivity {
     int First, Second;
     int IdFirst, IdSec;
     boolean isFirst =true;
-
+    Handler handler = new Handler();
+    boolean isRun;
+    long startTime, playedTime = 0L;
+    boolean isStart;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game1);
-
+        btnStart = findViewById(R.id.btnStart);
+        txtTimer = findViewById(R.id.txtTimer);
 
         iv_11 = findViewById(R.id.iv_11);
         iv_12 = findViewById(R.id.iv_12);
@@ -78,96 +87,140 @@ public class Game1 extends AppCompatActivity {
         iv_11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_11,theCard);
+                if (isStart==true) {
+                   int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_11, theCard);
+                }
 
             }
         });
         iv_12.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_12,theCard);
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_12, theCard);
+                }
             }
         });
         iv_13.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_13,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_13, theCard);
+                }
             }
         });
         iv_14.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_14,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_14, theCard);
+                }
             }
         });
         iv_21.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_21,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_21, theCard);
+                }
             }
         });
         iv_22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_22,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_22, theCard);
+                }
             }
         });
         iv_23.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_23,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_23, theCard);
+                }
             }
         });
         iv_24.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_24,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_24, theCard);
+                }
             }
         });
         iv_31.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_31,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_31, theCard);
+                }
             }
         });
         iv_32.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_32,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_32, theCard);
+                }
             }
         });
         iv_33.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_33,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_33, theCard);
+                }
             }
         });
         iv_34.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int theCard = Integer.parseInt((String) v.getTag());
-                correctImage(iv_34,theCard);
-
+                if (isStart==true) {
+                    int theCard = Integer.parseInt((String) v.getTag());
+                    correctImage(iv_34, theCard);
+                }
+            }
+        });
+    }
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            playedTime = SystemClock.uptimeMillis() - startTime;
+            long secs = (playedTime/1000);
+            long mins= secs/60;
+            secs = secs %60;
+            long milliseconds = (playedTime%1000);
+            txtTimer.setText(""+mins+":" + String.format("%02d",secs) + ":" + String.format("%02d",milliseconds));
+            handler.postDelayed(this,0);
+        }
+    };
+    protected void onStart(){
+        super.onStart();
+        clickStart();
+    }
+    void clickStart()
+    {
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isRun)
+                    return;
+                isRun = true;
+                startTime = SystemClock.uptimeMillis();
+                isStart=true;
+                handler.postDelayed(runnable, 0);
             }
         });
     }
@@ -343,6 +396,8 @@ public class Game1 extends AppCompatActivity {
                 iv_32.getVisibility()==View.INVISIBLE &&
                 iv_33.getVisibility()==View.INVISIBLE &&
                 iv_34.getVisibility()==View.INVISIBLE ){
+            isRun = false;
+            handler.removeCallbacks(runnable);
             AlertDialog.Builder alertDialogBuilder =new  AlertDialog.Builder(Game1.this);
             alertDialogBuilder
 
@@ -382,4 +437,5 @@ public class Game1 extends AppCompatActivity {
 
 
     }
+
 }
