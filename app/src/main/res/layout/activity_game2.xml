@@ -59,7 +59,8 @@
         android:id="@+id/userInput"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="61dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:ems="10"
         android:gravity="center"
         android:inputType="number"
@@ -67,6 +68,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/enter"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/randomNumber"
         app:layout_constraintTop_toBottomOf="@+id/score" />
 
@@ -74,15 +76,25 @@
         android:id="@+id/score"
         android:layout_width="108dp"
         android:layout_height="58dp"
-        android:layout_marginBottom="66dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="Score: 0"
         android:textColor="@android:color/holo_purple"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/userInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/replay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="296dp"
+        android:text="Play again"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
