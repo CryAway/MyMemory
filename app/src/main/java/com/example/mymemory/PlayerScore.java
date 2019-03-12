@@ -5,20 +5,20 @@ import java.util.ArrayList;
 public class PlayerScore {
     private String Name;
     private int ID;
-    private int ScoreC;
-    private int ScoreN;
+    private int Card;
+    private int Numb;
 
-    public PlayerScore(String Name, int dayS, int dayE, int Des)
+    public PlayerScore(String Name, int ID, int Card, int Numb)
     {
         this.Name=Name;
         this.ID=ID;
-        this.ScoreC=ScoreC;
-        this.ScoreN=ScoreN;
+        this.Card=Card;
+        this.Numb=Numb;
     }
     public String getName(){return Name;}
     public String getID(){return(Integer.toString(ID));}
-    public String getScoreC(){return(Integer.toString(ScoreC));}
-    public String getScoreN(){return(Integer.toString(ScoreN));}
+    public String getScoreC(){return(Integer.toString(Card));}
+    public String getScoreN(){return(Integer.toString(Numb));}
 
-    public String toString() {return this.Name;}
+    public String toString() {return this.Name/* +  "Score C" + this.Card + "Score N" + this.Numb*/;}
 }

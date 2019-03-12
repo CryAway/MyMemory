@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/brain"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Game1"></activity>
+        <activity android:name=".CreatePlayer"></activity>
+        <activity android:name=".RemovePlayer" />
+        <activity android:name=".SelectPlayer" />
+        <activity android:name=".Game1" />
         <activity
             android:name=".Game2"
             android:label="@string/title_activity_game2"
