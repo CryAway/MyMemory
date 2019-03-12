@@ -46,10 +46,10 @@
 
     <Button
         android:id="@+id/enter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="86dp"
+        android:layout_height="62dp"
         android:layout_marginBottom="276dp"
-        android:text="Enter"
+        android:background="@drawable/enter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/randomNumber"
         app:layout_constraintStart_toStartOf="@+id/randomNumber"
@@ -88,10 +88,10 @@
 
     <Button
         android:id="@+id/replay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="104dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="296dp"
-        android:text="Play again"
+        android:background="@drawable/replay"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

@@ -18,6 +18,7 @@ public class Game2 extends AppCompatActivity {
     private String numberToRemember;
     private int level = 1;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
