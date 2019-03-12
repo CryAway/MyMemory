@@ -58,7 +58,7 @@ public class Game2 extends AppCompatActivity {
         });
     }
 
-
+    
     protected void startRound(int level){
         final EditText input = (EditText) findViewById(R.id.userInput);
         final Button enterButton = findViewById(R.id.enter);
