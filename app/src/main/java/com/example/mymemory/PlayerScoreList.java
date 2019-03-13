@@ -15,17 +15,8 @@ public class PlayerScoreList {
     public void add()
     {
         players = new ArrayList<PlayerScore>();
-        /*
-        players.add(new PlayerScore("Nhan", "1", "6","23"));
-        players.add(new PlayerScore("Nhan", "2", "7","33"));
-        players.add(new PlayerScore("Nhan", "3", "8","43"));
-        players.add(new PlayerScore("Nhan", "4", "9","53"));
-        players.add(new PlayerScore("Nhan", "5", "0","53"));
-        */
-        //Log.d("score", players.[0]);
     }
     //add Player from file txt
-
     public void add(String Name, String ID, String Card, String Numb)
     {
         players.add(new PlayerScore(Name,ID,Card,Numb));
@@ -147,7 +138,7 @@ public class PlayerScoreList {
         secs = secs %60;
         long milliseconds = (playedTime%1000);
         Time = String.format("%02d",mins)+":" + String.format("%02d",secs) + ":" + String.format("%02d",milliseconds);
-        if (Time.compareTo(PlayerScoreList.getInstance().players.get(index).getScoreC())<0 && MainActivity.stringToint(PlayerScoreList.getInstance().players.get(index).getScoreC())!=0)
+        if (Time.compareTo(PlayerScoreList.getInstance().players.get(index).getScoreC())<0 || MainActivity.stringToint(PlayerScoreList.getInstance().players.get(index).getScoreC())==0)
         {
             PlayerScoreList.getInstance().players.get(index).setCard(Time);
         }

@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         int len = str.length();
         if( str.charAt(0) == '-' ){
             isNegative = true;
+
             i = 1;
         }
         while( i < len ){
