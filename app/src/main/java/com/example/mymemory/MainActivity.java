@@ -1,45 +1,31 @@
 package com.example.mymemory;
-
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.view.View;
 import android.widget.*;
-import java.io.*;
 import java.util.*;
-
 public class MainActivity extends AppCompatActivity {
     private ListView lv;
-    Intent intent = getIntent();
-    boolean Initial = true;
-    private String ScoreFile="note.txt";
-    private String ScoreFilePath= "Score";
-    File myInternalFile;
-    private static final MainActivity ourInstance = new MainActivity();
-    public static MainActivity getInstance() {
-        return ourInstance;
-    }
+    private String LastPlayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
-        File directory = contextWrapper.getDir(ScoreFilePath, Context.MODE_PRIVATE);
-        myInternalFile = new File(directory, ScoreFile);
-
         PlayerScoreList.getInstance().add();
-        PlayerScoreList.getInstance().add("Nhan1111", 11, 22, 33);
-        PlayerScoreList.getInstance().add("Nhan2222", 22, 33, 44);
-        Initial=!Initial;
+        PlayerScoreList.getInstance().readData(this); //Read data from file
+        PlayerScoreList.getInstance().saveDataDefault(this,null);
+        LastPlayer = PlayerScoreList.getInstance().readLastPlayer(this); //set Player
+        //load Data from txt file
+        //changeText();
     }
-    /////
-    //
-
-
-
-
+    /*public void changeText()
+    {
+        TextView tv = findViewById(R.id.MainView);
+        String Welcome = "Hello" + players.get(Integer.parseInt(LastPlayer)).getName();
+        tv.setText(Welcome);
+    }*/
+    //list of activities
     public void Player(View v)
     {
         Intent intent = new Intent(this, Player.class);
@@ -60,4 +46,23 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent (this, ScoreBoard.class);
         startActivity(intent);
     }
+    //converter
+    public static int stringToint( String str )
+    {
+        int i = 0, number = 0;
+        boolean isNegative = false;
+        int len = str.length();
+        if( str.charAt(0) == '-' ){
+            isNegative = true;
+            i = 1;
+        }
+        while( i < len ){
+            number *= 10;
+            number += ( str.charAt(i++) - '0' );
+        }
+        if( isNegative )
+            number = -number;
+        return number;
+    }
 }
+

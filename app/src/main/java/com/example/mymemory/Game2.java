@@ -1,10 +1,9 @@
-
 package com.example.mymemory;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -12,21 +11,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Random;
-
 public class Game2 extends AppCompatActivity {
     //state of the game
     private String numberToRemember;
     private int level = 1;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game2);
-
         //start the game
         startRound(level);
-
         final Button enterButton = findViewById(R.id.enter);
         //an event for button click when user gives the input
         enterButton.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +32,6 @@ public class Game2 extends AppCompatActivity {
         //we hide the replay button at the start
         final Button replay = findViewById(R.id.replay);
         replay.setVisibility(View.GONE);
-
         replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,8 +50,6 @@ public class Game2 extends AppCompatActivity {
             }
         });
     }
-
-    
     protected void startRound(int level){
         final EditText input = (EditText) findViewById(R.id.userInput);
         final Button enterButton = findViewById(R.id.enter);
@@ -70,7 +61,6 @@ public class Game2 extends AppCompatActivity {
         textDisplay.setText(numberToRemember);
         startTimer();
     }
-
     //start timer function
     void startTimer() {
         CountDownTimer cTimer = new CountDownTimer(5000, 1000) {
@@ -96,9 +86,6 @@ public class Game2 extends AppCompatActivity {
         //after defining the timer, we can start it
         cTimer.start();
     }
-
-
-
     protected String createRandomNumber(int lhkgjfh){
         //make a storing box for the random number
         String output = "";
@@ -118,7 +105,6 @@ public class Game2 extends AppCompatActivity {
         }
         return output;
     }
-
     protected void checkanswer()
     {
         final EditText input = (EditText) findViewById(R.id.userInput);
@@ -129,6 +115,13 @@ public class Game2 extends AppCompatActivity {
             //after user passed the round, we clear the input they typed
             input.setText("");
             //increase the level and start the next round
+            String checkkk = PlayerScoreList.getInstance().readLastPlayer(this);
+            //int index= 0;
+            int testindex=MainActivity.stringToint(checkkk.toString().trim());
+            PlayerScoreList.getInstance().saveNumScore(Integer.toString(level),testindex);
+            Log.d("indexxxg2",checkkk);
+            Log.d("indexxxCg2",Integer.toString(testindex));
+            PlayerScoreList.getInstance().saveDataDefault(this,null);
             level++;
             startRound(level);
         } else {
@@ -139,7 +132,7 @@ public class Game2 extends AppCompatActivity {
 
             //show the correct answer
             final TextView textDisplay = findViewById(R.id.randomNumber);
-            textDisplay.setText("Wrong number: " + input.getText() + " Answer: " + numberToRemember);
+            textDisplay.setText("Wrong number: " + input.getText() + " \nAnswer: " + numberToRemember);
 
             //show replay button
             final Button replay = findViewById(R.id.replay);

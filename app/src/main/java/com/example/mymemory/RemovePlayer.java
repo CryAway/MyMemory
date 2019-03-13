@@ -1,5 +1,6 @@
 package com.example.mymemory;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,12 +22,12 @@ public class RemovePlayer extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, //XML item layout
                 PlayerScoreList.getInstance().getPlayerScoreList()) //array of data
         );
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent nextActivity = new Intent(RemovePlayer.this,SelectPlayer.class);
+                Intent nextActivity = new Intent(RemovePlayer.this,MainActivity.class);
                 nextActivity.putExtra("players", i);
                 PlayerScoreList.getInstance().remove(i);
+                PlayerScoreList.getInstance().saveDataDefault(RemovePlayer.this, "Removed");
                 startActivity(nextActivity);
             }
         });

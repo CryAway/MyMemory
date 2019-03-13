@@ -1,8 +1,6 @@
 package com.example.mymemory;
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 public class Information extends AppCompatActivity {
     //Say something about our game here
     //Add some text

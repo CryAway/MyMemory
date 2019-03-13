@@ -24,7 +24,8 @@ public class SelectPlayer extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent nextActivity = new Intent(SelectPlayer.this,MainActivity.class);
-                nextActivity.putExtra("players", i);
+                //nextActivity.putExtra("players", i);
+                PlayerScoreList.getInstance().saveLastPlayer(SelectPlayer.this,i);
                 startActivity(nextActivity);
             }
         });

@@ -1,5 +1,4 @@
 package com.example.mymemory;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
@@ -7,18 +6,17 @@ import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 public class Game1 extends AppCompatActivity {
-
+    String TimeScore;
+    long TimeNumb;
     Button btnStart;
     TextView txtTimer;
     ImageView iv_11,iv_12,iv_13,iv_14,iv_21,iv_22,iv_23,iv_24,iv_31,iv_32,iv_33,iv_34;
@@ -26,7 +24,6 @@ public class Game1 extends AppCompatActivity {
     Integer[] cardsArray = {11,12,13,14,15,16,21,22,23,24,25,26};
     int image11,image12,image13,image14,image15,image16,
             image21,image22,image23,image24,image25,image26;
-
     int First, Second;
     int IdFirst, IdSec;
     boolean isFirst =true;
@@ -34,15 +31,12 @@ public class Game1 extends AppCompatActivity {
     boolean isRun;
     long startTime, playedTime = 0L;
     boolean isStart;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game1);
         btnStart = findViewById(R.id.btnStart);
         txtTimer = findViewById(R.id.txtTimer);
-
         iv_11 = findViewById(R.id.iv_11);
         iv_12 = findViewById(R.id.iv_12);
         iv_13 = findViewById(R.id.iv_13);
@@ -55,8 +49,6 @@ public class Game1 extends AppCompatActivity {
         iv_32 = findViewById(R.id.iv_32);
         iv_33 = findViewById(R.id.iv_33);
         iv_34 = findViewById(R.id.iv_34);
-
-
         //The main purpose of setTag() : create a unique onClick method for each view
         iv_11.setTag("0");
         iv_12.setTag("1");
@@ -70,20 +62,13 @@ public class Game1 extends AppCompatActivity {
         iv_32.setTag("9");
         iv_33.setTag("10");
         iv_34.setTag("11");
-
-
         //display the card images
         cardImages();
-
         //shuffle the images
         List<Integer> l = Arrays.asList(cardsArray);
         System.out.println(l);
-
         Collections.shuffle(l);
-
         System.out.println(l);
-
-
         iv_11.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +76,6 @@ public class Game1 extends AppCompatActivity {
                    int theCard = Integer.parseInt((String) v.getTag());
                     correctImage(iv_11, theCard);
                 }
-
             }
         });
         iv_12.setOnClickListener(new View.OnClickListener() {
@@ -202,7 +186,9 @@ public class Game1 extends AppCompatActivity {
             long mins= secs/60;
             secs = secs %60;
             long milliseconds = (playedTime%1000);
-            txtTimer.setText(""+mins+":" + String.format("%02d",secs) + ":" + String.format("%02d",milliseconds));
+            txtTimer.setText(""+ String.format("%02d",mins)+":" + String.format("%02d",secs) + ":" + String.format("%02d",milliseconds));
+            TimeScore=""+ String.format("%02d",mins)+":" + String.format("%02d",secs) + ":" + String.format("%02d",milliseconds);
+            TimeNumb=playedTime;
             handler.postDelayed(this,0);
         }
     };
@@ -224,7 +210,6 @@ public class Game1 extends AppCompatActivity {
             }
         });
     }
-
     //set the correct image to the image view
     private  void correctImage(ImageView iv, int card) {
         if (cardsArray[card] == 11) {
@@ -252,7 +237,6 @@ public class Game1 extends AppCompatActivity {
         } else if (cardsArray[card] == 26) {
             iv.setImageResource(image26);
         }
-
         //check which image is selected and assign it to a temporary variable
         if (isFirst == true) {
             First = cardsArray[card];
@@ -269,7 +253,6 @@ public class Game1 extends AppCompatActivity {
             }
             isFirst = !isFirst;
             IdSec = card;
-
             iv_11.setEnabled(false);
             iv_12.setEnabled(false);
             iv_13.setEnabled(false);
@@ -282,7 +265,6 @@ public class Game1 extends AppCompatActivity {
             iv_32.setEnabled(false);
             iv_33.setEnabled(false);
             iv_34.setEnabled(false);
-
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -321,7 +303,6 @@ public class Game1 extends AppCompatActivity {
             }else if (IdFirst==11){
                 iv_34.setVisibility(View.INVISIBLE);
             }
-
             if (IdSec==0){
                 iv_11.setVisibility(View.INVISIBLE);
             }else if (IdSec==1){
@@ -347,8 +328,6 @@ public class Game1 extends AppCompatActivity {
             }else if (IdSec==11){
                 iv_34.setVisibility(View.INVISIBLE);
             }
-
-
         }else {
             iv_11.setImageResource(R.drawable.back_card);
             iv_12.setImageResource(R.drawable.back_card);
@@ -362,9 +341,6 @@ public class Game1 extends AppCompatActivity {
             iv_32.setImageResource(R.drawable.back_card);
             iv_33.setImageResource(R.drawable.back_card);
             iv_34.setImageResource(R.drawable.back_card);
-
-
-
         }
         iv_11.setEnabled(true);
         iv_12.setEnabled(true);
@@ -378,8 +354,6 @@ public class Game1 extends AppCompatActivity {
         iv_32.setEnabled(true);
         iv_33.setEnabled(true);
         iv_34.setEnabled(true);
-
-
         //check if there is any image left
         imagesLeft();
     }
@@ -399,28 +373,32 @@ public class Game1 extends AppCompatActivity {
             isRun = false;
             handler.removeCallbacks(runnable);
             AlertDialog.Builder alertDialogBuilder =new  AlertDialog.Builder(Game1.this);
-            alertDialogBuilder
-
-                    .setCancelable(false)
-                    .setPositiveButton("NEW", new DialogInterface.OnClickListener() {
+            alertDialogBuilder.setCancelable(false).setPositiveButton("NEW", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(getApplicationContext(),Game1.class);
                             startActivity(intent);
                             finish();
                         }
-                    })
-                    .setNegativeButton("EXIT", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton("EXIT ", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             finish();
                         }
                     });
+            //
+            //Log.d("indexxxcheck",Integer.toString(index));
+            String checkkk = PlayerScoreList.getInstance().readLastPlayer(this);
+            //int index= 0;
+            int testindex=MainActivity.stringToint(checkkk.toString().trim());
+            PlayerScoreList.getInstance().saveTimeScore(playedTime,testindex);
+            Log.d("indexxx",checkkk);
+            Log.d("indexxxC",Integer.toString(testindex));
+            PlayerScoreList.getInstance().saveDataDefault(this,null);
             AlertDialog alertDialog = alertDialogBuilder.create();
             alertDialog.show();
     }
     }
-
     private void cardImages(){
         image11 = R.drawable.c1;
         image12 = R.drawable.c2;
@@ -434,8 +412,5 @@ public class Game1 extends AppCompatActivity {
         image24 = R.drawable.c44;
         image25 = R.drawable.c55;
         image26 = R.drawable.c66;
-
-
     }
-
 }

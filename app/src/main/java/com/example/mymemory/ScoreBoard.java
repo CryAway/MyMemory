@@ -20,7 +20,6 @@ public class ScoreBoard extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, //XML item layout
                 PlayerScoreList.getInstance().getPlayerScoreList()) //array of data
         );
-
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
